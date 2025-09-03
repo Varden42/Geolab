@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqf1nmicfugvw"]
+
+[ext_resource type="StyleBox" uid="uid://buq6fmajerc3b" path="res://Styles/PanneauDebugStyle.tres" id="1_0f8am"]
+
+[node name="Colonne" type="VBoxContainer"]
+offset_right = 200.0
+offset_bottom = 23.0
+
+[node name="Ligne" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Nom" type="Label" parent="Ligne"]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("1_0f8am")
+text = "variable au nom bien trop long : "
+
+[node name="Valeur" type="Label" parent="Ligne"]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("1_0f8am")
+text = "42 millions de dollarsss"
+
+[node name="Ligne2" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Nom" type="Label" parent="Ligne2"]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("1_0f8am")
+text = "Trajectoire : "
+
+[node name="Valeur" type="Label" parent="Ligne2"]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("1_0f8am")
+text = "67.25
+"
