@@ -11,7 +11,7 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.196078, 0.196078, 0.196078, 1)
 
-[node name="GeolabI" type="Node3D"]
+[node name="Geolab_I" type="Node3D"]
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 clip_contents = true

@@ -65,4 +65,7 @@ public partial class ActionOnOff : AspectRatioContainer, IAction
 
     public void Redimensionner(float taille_)
     { CustomMinimumSize = new(taille_, taille_); }
+
+    public void Réorienter(bool vertical_ = true)
+    {    }
 }

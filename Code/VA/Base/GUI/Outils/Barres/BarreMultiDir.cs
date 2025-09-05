@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Godot;
 
 namespace VA.Base.GUI.Outils.Barre;
@@ -16,6 +17,7 @@ namespace VA.Base.GUI.Outils.Barre;
 //     
 // }
 
+[Tool]
 public partial class BarreMultiDir: PanelContainer
 {
     public const float TAILLE_ELEMENT = 20f;
@@ -27,14 +29,19 @@ public partial class BarreMultiDir: PanelContainer
     private int Zoom_;
     
     public int Zoom { get => Zoom_; set => ChangerZoom(value); }
+    public bool Vertical => Bord != EnumBord.Haut && Bord != EnumBord.Bas;
+
+    public event Action<bool> ChangementDeBord;
 
     private void Init(EnumBord bord_ = EnumBord.Haut)
     {
         Bord = bord_;
+
+        Elements = new();
         
         ClipContents = true;
         
-        FlowContainer Lignes = new();
+        Lignes = new();
         Lignes.Name = "Lignes";
         Lignes.ClipContents = true;
         Lignes.AddThemeConstantOverride("h_separation", 1);
@@ -62,6 +69,9 @@ public partial class BarreMultiDir: PanelContainer
     /// <param name="bord_"></param>
     private void ChangerBord(EnumBord bord_)
     {
+        Bord = bord_;
+        ChangementDeBord?.Invoke(Vertical);
+        
         // reconfigurer les controles en fonction du bord choisit
         switch (Bord)
         {
@@ -112,6 +122,8 @@ public partial class BarreMultiDir: PanelContainer
         Lignes.AddChild(element_ as Control);
         if (index_ >= 0 && index_ < Elements.Count)
         { Lignes.MoveChild(element_ as Control, index_); }
+        if (element_ is Groupe)
+        { ChangementDeBord += ((Groupe)element_).Réorienter; }
     }
 
     public bool RetraitElement(IElement element_)
