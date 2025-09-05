@@ -13,28 +13,126 @@ border_color = Color(0.196078, 0.196078, 0.196078, 1)
 
 [node name="Geolab_I" type="Node3D"]
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="BarreMultiDir" type="PanelContainer" parent="."]
 clip_contents = true
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 20.0
-grow_vertical = 2
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 20.0
+grow_horizontal = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_7b5kn")
 
-[node name="FlowContainer" type="FlowContainer" parent="PanelContainer"]
+[node name="Lignes" type="FlowContainer" parent="BarreMultiDir"]
 clip_contents = true
 layout_mode = 2
 theme_override_constants/h_separation = 1
 theme_override_constants/v_separation = 1
-vertical = true
 
-[node name="AspectRatioContainer12" type="AspectRatioContainer" parent="PanelContainer/FlowContainer"]
+[node name="BoxContainer" type="BoxContainer" parent="BarreMultiDir/Lignes"]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="Action" type="AspectRatioContainer" parent="BarreMultiDir/Lignes/BoxContainer"]
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 stretch_mode = 1
 
-[node name="TextureButton" type="TextureButton" parent="PanelContainer/FlowContainer/AspectRatioContainer12"]
+[node name="TextureButton" type="TextureButton" parent="BarreMultiDir/Lignes/BoxContainer/Action"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("1_j24wf")
+texture_pressed = ExtResource("2_sqpff")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Action2" type="AspectRatioContainer" parent="BarreMultiDir/Lignes/BoxContainer"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+stretch_mode = 1
+
+[node name="TextureButton" type="TextureButton" parent="BarreMultiDir/Lignes/BoxContainer/Action2"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("1_j24wf")
+texture_pressed = ExtResource("2_sqpff")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Action3" type="AspectRatioContainer" parent="BarreMultiDir/Lignes/BoxContainer"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+stretch_mode = 1
+
+[node name="TextureButton" type="TextureButton" parent="BarreMultiDir/Lignes/BoxContainer/Action3"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("1_j24wf")
+texture_pressed = ExtResource("2_sqpff")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Action4" type="AspectRatioContainer" parent="BarreMultiDir/Lignes/BoxContainer"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+stretch_mode = 1
+
+[node name="TextureButton" type="TextureButton" parent="BarreMultiDir/Lignes/BoxContainer/Action4"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("1_j24wf")
+texture_pressed = ExtResource("2_sqpff")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="BoxContainer2" type="BoxContainer" parent="BarreMultiDir/Lignes"]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="Action" type="AspectRatioContainer" parent="BarreMultiDir/Lignes/BoxContainer2"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+stretch_mode = 1
+
+[node name="TextureButton" type="TextureButton" parent="BarreMultiDir/Lignes/BoxContainer2/Action"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("1_j24wf")
+texture_pressed = ExtResource("2_sqpff")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Action2" type="AspectRatioContainer" parent="BarreMultiDir/Lignes/BoxContainer2"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+stretch_mode = 1
+
+[node name="TextureButton" type="TextureButton" parent="BarreMultiDir/Lignes/BoxContainer2/Action2"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("1_j24wf")
+texture_pressed = ExtResource("2_sqpff")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Action3" type="AspectRatioContainer" parent="BarreMultiDir/Lignes/BoxContainer2"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+stretch_mode = 1
+
+[node name="TextureButton" type="TextureButton" parent="BarreMultiDir/Lignes/BoxContainer2/Action3"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("1_j24wf")
+texture_pressed = ExtResource("2_sqpff")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Action4" type="AspectRatioContainer" parent="BarreMultiDir/Lignes/BoxContainer2"]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+stretch_mode = 1
+
+[node name="TextureButton" type="TextureButton" parent="BarreMultiDir/Lignes/BoxContainer2/Action4"]
 layout_mode = 2
 toggle_mode = true
 texture_normal = ExtResource("1_j24wf")

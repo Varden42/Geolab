@@ -1,3 +1,8 @@
-[gd_scene format=3 uid="uid://ckq7uvgu37qlw"]
+[gd_scene load_steps=2 format=3 uid="uid://ckq7uvgu37qlw"]
+
+[ext_resource type="Script" uid="uid://b06ys8tcwc3yx" path="res://Code/VA/Base/Systemes/Majordome.cs" id="1_id5li"]
 
 [node name="GeolabTest" type="Node3D"]
+
+[node name="Majordome" type="Node" parent="."]
+script = ExtResource("1_id5li")
