@@ -18,18 +18,19 @@ namespace VA.Base.GUI.Outils.Barre;
 
 public partial class BarreMultiDir: PanelContainer
 {
-    enum EnumBord { Haut, Bas, Gauche, Droite }
+    public const float TAILLE_ELEMENT = 20f;
+    public enum EnumBord { Haut, Bas, Gauche, Droite }
 
     private EnumBord Bord;
     private FlowContainer Lignes;
-    private List<IActionBarre> Actions;
+    private List<IElement> Elements;
     private int Zoom_;
     
     public int Zoom { get => Zoom_; set => ChangerZoom(value); }
 
-    private void Init()
+    private void Init(EnumBord bord_ = EnumBord.Haut)
     {
-        Bord = EnumBord.Haut;
+        Bord = bord_;
         
         ClipContents = true;
         
@@ -47,7 +48,12 @@ public partial class BarreMultiDir: PanelContainer
     
     public BarreMultiDir()
     {
-        
+        Init();
+    }
+
+    public BarreMultiDir(EnumBord bord_)
+    {
+        Init(bord_);
     }
 
     /// <summary>
@@ -86,8 +92,11 @@ public partial class BarreMultiDir: PanelContainer
     /// </summary>
     private void MajTailleActions()
     {
-        float tailleActions = 20 * Zoom_;
-        // Récupérer la taille de l'écran et trouver une taille d'actions qui sois le plus proche de 20 tout en permettant de toutes les faire rentrer sans laisser de trou ou en avoir qui dépasse.
+        float tailleEléments = TAILLE_ELEMENT * Zoom_;
+        float longueurBarre = Bord == EnumBord.Bas || Bord == EnumBord.Haut ? GetViewportRect().Size.X : GetViewportRect().Size.Y;
+        tailleEléments = longueurBarre / Mathf.Round(longueurBarre / tailleEléments);
+        foreach (IElement élément in Elements)
+        { élément.Redimensionner(tailleEléments); }
     }
     
     
@@ -95,5 +104,21 @@ public partial class BarreMultiDir: PanelContainer
     {
         // recalculer la taille des actions et les redimensionner
         MajTailleActions();
+    }
+
+    public void AjouterElement(IElement element_, int index_ = -1)
+    {
+        Elements.Add(element_);
+        Lignes.AddChild(element_ as Control);
+        if (index_ >= 0 && index_ < Elements.Count)
+        { Lignes.MoveChild(element_ as Control, index_); }
+    }
+
+    public bool RetraitElement(IElement element_)
+    {
+        IElement element = Elements.Find(e => e == element_);
+        bool réussite = Elements.Remove(element_);
+        (element as Control)?.QueueFree();
+        return réussite;
     }
 }
