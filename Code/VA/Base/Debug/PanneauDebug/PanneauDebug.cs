@@ -13,8 +13,6 @@ namespace VA.Base.Debug;
 /// </summary>
 public partial class PanneauDebug : Control
 {
-    // TODO: ne charger le style qu'une fois
-    
     /// <summary>
     /// Affiche une Ligne avec son nom et sa valeur
     /// </summary>
@@ -29,24 +27,6 @@ public partial class PanneauDebug : Control
         /// Constructeur par défaut
         /// </summary>
         public Ligne(): this("<vide>", () => "<vide>") { }
-        // {
-        //     Name = "<vide>";
-        //     StyleBoxFlat style = ResourceLoader.Load<StyleBoxFlat>("res://VA/Base/Debug/PanneauDebug/PanneauDebugStyle.tres");
-        //
-        //     Nom = new Label();
-        //     Nom.Name = "Nom";
-        //     Nom.Text = "<vide>";
-        //     Nom.AddThemeStyleboxOverride("normal", style);
-        //     AddChild(Nom);
-        //
-        //     Valeur = new Label();
-        //     Valeur.Name = "Valeur";
-        //     Valeur.Text = "<vide>";
-        //     Valeur.AddThemeStyleboxOverride("normal", style);
-        //     AddChild(Valeur);
-        //
-        //     RécupValeur = () => "<vide>";
-        // }
         
         /// <summary>
         /// Construit une ligne avec un nom et une valeur
@@ -355,7 +335,6 @@ public partial class PanneauDebug : Control
         }
     }
     
-    // TODO: récupérer le style depuis le gestionnaire de ressources
     protected static StyleBoxFlat Style = ResourceLoader.Load<StyleBoxFlat>(Biblio.Index.RecupIndex(Index.CatégorieIndexs.Style, "PanneauDebug"));
     public delegate string MajLigne();
     private VBoxContainer Liste;
@@ -367,6 +346,8 @@ public partial class PanneauDebug : Control
     /// </summary>
     public PanneauDebug()
     {
+        TopLevel = true;
+        
         Catégories = new();
         Actualiseurs = new();
 

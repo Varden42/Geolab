@@ -8,7 +8,7 @@ public delegate void Action(bool état_);
 public delegate void ActionOn();
 public delegate void ActionOff();
 
-public interface IActionBarre
+public interface IAction: IElement
 {
     public void Clic(InputEventMouse event_)
     {
@@ -24,7 +24,7 @@ public interface IActionBarre
 //     }
 // }
 
-public partial class ActionOnOff : AspectRatioContainer, IActionBarre
+public partial class ActionOnOff : AspectRatioContainer, IAction
 {
     private TextureButton Bouton;
     private ActionOn On;
@@ -62,4 +62,10 @@ public partial class ActionOnOff : AspectRatioContainer, IActionBarre
             case false: Off(); break;
         }
     }
+
+    public void Redimensionner(float taille_)
+    { CustomMinimumSize = new(taille_, taille_); }
+
+    public void Réorienter(bool vertical_ = true)
+    {    }
 }
