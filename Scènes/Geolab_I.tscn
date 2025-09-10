@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dtjreelbredsi"]
+[gd_scene load_steps=5 format=3 uid="uid://dtjreelbredsi"]
 
 [ext_resource type="Texture2D" uid="uid://clsulqfmnvlum" path="res://images/Icones/GodotNormal.png" id="1_j24wf"]
 [ext_resource type="Texture2D" uid="uid://byprc3kcdqa62" path="res://images/Icones/GodotPressé.png" id="2_sqpff"]
@@ -10,6 +10,14 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.196078, 0.196078, 0.196078, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j24wf"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 1
+border_width_right = 1
+border_color = Color(0.196078, 0.196078, 0.196078, 1)
+expand_margin_left = 1.0
+expand_margin_right = 1.0
 
 [node name="Geolab_I" type="Node3D"]
 
@@ -28,16 +36,20 @@ layout_mode = 2
 theme_override_constants/h_separation = 1
 theme_override_constants/v_separation = 1
 
-[node name="BoxContainer" type="BoxContainer" parent="BarreMultiDir/Lignes"]
+[node name="Cadre" type="PanelContainer" parent="BarreMultiDir/Lignes"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_j24wf")
+
+[node name="BoxContainer" type="BoxContainer" parent="BarreMultiDir/Lignes/Cadre"]
 layout_mode = 2
 theme_override_constants/separation = 1
 
-[node name="Action" type="AspectRatioContainer" parent="BarreMultiDir/Lignes/BoxContainer"]
+[node name="Action" type="AspectRatioContainer" parent="BarreMultiDir/Lignes/Cadre/BoxContainer"]
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 stretch_mode = 1
 
-[node name="TextureButton" type="TextureButton" parent="BarreMultiDir/Lignes/BoxContainer/Action"]
+[node name="TextureButton" type="TextureButton" parent="BarreMultiDir/Lignes/Cadre/BoxContainer/Action"]
 layout_mode = 2
 toggle_mode = true
 texture_normal = ExtResource("1_j24wf")
@@ -45,12 +57,12 @@ texture_pressed = ExtResource("2_sqpff")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Action2" type="AspectRatioContainer" parent="BarreMultiDir/Lignes/BoxContainer"]
+[node name="Action2" type="AspectRatioContainer" parent="BarreMultiDir/Lignes/Cadre/BoxContainer"]
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 stretch_mode = 1
 
-[node name="TextureButton" type="TextureButton" parent="BarreMultiDir/Lignes/BoxContainer/Action2"]
+[node name="TextureButton" type="TextureButton" parent="BarreMultiDir/Lignes/Cadre/BoxContainer/Action2"]
 layout_mode = 2
 toggle_mode = true
 texture_normal = ExtResource("1_j24wf")
@@ -58,12 +70,12 @@ texture_pressed = ExtResource("2_sqpff")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Action3" type="AspectRatioContainer" parent="BarreMultiDir/Lignes/BoxContainer"]
+[node name="Action3" type="AspectRatioContainer" parent="BarreMultiDir/Lignes/Cadre/BoxContainer"]
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 stretch_mode = 1
 
-[node name="TextureButton" type="TextureButton" parent="BarreMultiDir/Lignes/BoxContainer/Action3"]
+[node name="TextureButton" type="TextureButton" parent="BarreMultiDir/Lignes/Cadre/BoxContainer/Action3"]
 layout_mode = 2
 toggle_mode = true
 texture_normal = ExtResource("1_j24wf")
@@ -71,12 +83,12 @@ texture_pressed = ExtResource("2_sqpff")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Action4" type="AspectRatioContainer" parent="BarreMultiDir/Lignes/BoxContainer"]
+[node name="Action4" type="AspectRatioContainer" parent="BarreMultiDir/Lignes/Cadre/BoxContainer"]
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 2
 stretch_mode = 1
 
-[node name="TextureButton" type="TextureButton" parent="BarreMultiDir/Lignes/BoxContainer/Action4"]
+[node name="TextureButton" type="TextureButton" parent="BarreMultiDir/Lignes/Cadre/BoxContainer/Action4"]
 layout_mode = 2
 toggle_mode = true
 texture_normal = ExtResource("1_j24wf")

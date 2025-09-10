@@ -102,6 +102,9 @@ public partial class BarreMultiDir: PanelContainer
     /// </summary>
     private void MajTailleActions()
     {
+        // TODO: prendre en compte l'espace entre les éléments ainsi que les bordures.
+        // parcourir les éléments et calculer le cumul de toutes les zones de vide pour les retirer de la longueur de la barre.
+        // faut-il ajouter un séparateur entre les éléments ou bien l'intégrer dans chaque éléments ?
         float tailleEléments = TAILLE_ELEMENT * Zoom_;
         float longueurBarre = Bord == EnumBord.Bas || Bord == EnumBord.Haut ? GetViewportRect().Size.X : GetViewportRect().Size.Y;
         tailleEléments = longueurBarre / Mathf.Round(longueurBarre / tailleEléments);

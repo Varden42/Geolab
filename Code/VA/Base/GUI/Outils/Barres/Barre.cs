@@ -16,6 +16,9 @@ public interface IElement
     public void Réorienter(bool vertical_ = true);
 }
 
+/// <summary>
+/// Un groupe contient plusieurs éléments séparés par une barre verticale
+/// </summary>
 public partial class Groupe : BoxContainer, IElement
 {
     private List<IElement> Elements;
