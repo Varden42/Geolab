@@ -229,4 +229,22 @@ public static class Utiles
         nouveauParent.AddChild(noeud_);
         return true;
     }
+
+    /// <summary>
+    /// Ajoute un noeud dans un autre à l'emplacement voulu si l'index est valide, sinon à la fin
+    /// </summary>
+    /// <param name="parent_"></param>
+    /// <param name="enfant_"></param>
+    /// <param name="index_">L'emplacement désiré de l'enfant dans le parent</param>
+    /// <returns>true, Si l'index est valide et que l'enfant a bien été ajouté à cet emplacement</returns>
+    public static bool AjouterNode(Node parent_, Node enfant_, int index_ = -1)
+    {
+        parent_.AddChild(enfant_ as Control);
+        if (index_ >= 0 && index_ < parent_.GetChildCount())
+        {
+            parent_.MoveChild(enfant_ as Control, index_);
+            return true;
+        }
+        return false;
+    }
 }

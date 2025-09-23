@@ -3,25 +3,12 @@ using System.Collections.Generic;
 using Godot;
 using VA.Base.Utiles;
 
-namespace VA.Base.GUI.Outils.Barre;
+namespace VA.Base.GUI.Outils;
 
-// TODO: Une barre qui peut être placé sur les bords de l'écran, dans laquelle ont peut placer des outils ou palettes
-// Elle aura une épaisseur définie et redimensionnera ses enfants en fonction
-// Ceux qui déborderont de la largeur de la barre seront ajouter sur un second niveau, doublant l'épaisseur
-// une barre pouvant être placé à l'horizontale ou verticale, devra toujours contenir des éléments pouvant se dimensionner dans les deux sens, donc pas de textes ou champs de saisie.
-
-// TODO: Peut se convertir en une palette d'outils (conteneur libre et non pas collé à un bord de l'écran
-
-// /// <summary>
-// /// Définit un élément pouvant être placer dans une barre
-// /// </summary>
-// public interface IPlacableBarreMultiDir
-// {
-//     
-// }
-
-[Tool]
-public partial class BarreMultiDir: PanelContainer
+/// <summary>
+/// Une barre contenant des outils et pouvant être placé sur les bords du rect dans lequel il se trouve
+/// </summary>
+public partial class BarreOutils: Element
 {
     public const float TAILLE_ELEMENT = 20f;
     public enum EnumBord { Haut, Bas, Gauche, Droite }
