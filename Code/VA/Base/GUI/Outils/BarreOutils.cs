@@ -8,15 +8,16 @@ namespace VA.Base.GUI.Outils;
 /// <summary>
 /// Une barre contenant des outils et pouvant être placé sur les bords du rect dans lequel il se trouve
 /// </summary>
-public partial class BarreOutils: Element
+public partial class BarreOutils: Prefab.ControlPrefab
 {
     public const float TAILLE_ELEMENT = 20f;
     public enum EnumBord { Haut, Bas, Gauche, Droite }
 
     private EnumBord Bord;
+    private PanelContainer Panneau;
     private FlowContainer Lignes;
     // private List<IElement> Elements;
-    private Dictionary<string, Groupe> Elements;
+    private Dictionary<string, Elements.Groupe> Elements;
     private CompteurInt Compteur;
     private int Zoom_;
     
@@ -31,27 +32,53 @@ public partial class BarreOutils: Element
 
         Elements = new();
         Compteur = new();
+
+        Panneau = new();
+        {
+            Panneau.ClipContents = true;
+
+            Lignes = new();
+            {
+                Lignes.Name = "Lignes";
+                Lignes.ClipContents = true;
+                Lignes.AddThemeConstantOverride("h_separation", 1);
+                Lignes.AddThemeConstantOverride("v_separation", 1);
+            }
+            Panneau.AddChild(Lignes);
+        }
+        AddChild(Panneau);
         
-        ClipContents = true;
         
-        Lignes = new();
-        Lignes.Name = "Lignes";
-        Lignes.ClipContents = true;
-        Lignes.AddThemeConstantOverride("h_separation", 1);
-        Lignes.AddThemeConstantOverride("v_separation", 1);
-        AddChild(Lignes);
         
         ChangerBord(Bord);
         
         Resized += MajTailleActions;
     }
+
+    protected override void Construire()
+    {
+        Panneau = new();
+        {
+            Panneau.ClipContents = true;
+
+            Lignes = new();
+            {
+                Lignes.Name = "Lignes";
+                Lignes.ClipContents = true;
+                Lignes.AddThemeConstantOverride("h_separation", 1);
+                Lignes.AddThemeConstantOverride("v_separation", 1);
+            }
+            Panneau.AddChild(Lignes);
+        }
+        AddChild(Panneau);
+    }
     
-    public BarreMultiDir()
+    public BarreOutils()
     {
         Init();
     }
 
-    public BarreMultiDir(EnumBord bord_)
+    public BarreOutils(EnumBord bord_)
     {
         Init(bord_);
     }
@@ -123,7 +150,7 @@ public partial class BarreOutils: Element
         { MajTailleActions(); }
     }
 
-    public void AjouterElement(IElement element_, int index_ = -1)
+    public void AjouterElement(Element element_, int index_ = -1)
     {
         Groupe groupe = new();
         groupe.AjouterElement(element_);
@@ -133,7 +160,7 @@ public partial class BarreOutils: Element
         ChangementDeBord += groupe.Réorienter;
     }
     
-    public void AjouterElement(string nomGroupe_, IElement element_, int index_ = -1)
+    public void AjouterElement(string nomGroupe_, Element element_, int index_ = -1)
     {
         if (Elements.TryGetValue(nomGroupe_, out Groupe groupe))
         { groupe.AjouterElement(element_, index_); }
@@ -147,7 +174,7 @@ public partial class BarreOutils: Element
         }
     }
     
-    public void AjouterElements(string nomGroupe_, IEnumerable<IElement> elements_, int index_ = -1)
+    public void AjouterElements(string nomGroupe_, IEnumerable<Element> elements_, int index_ = -1)
     {
         if (Elements.TryGetValue(nomGroupe_, out Groupe groupe))
         { groupe.AjouterElements(elements_, index_); }
@@ -173,11 +200,28 @@ public partial class BarreOutils: Element
         }
     }
 
-    public bool RetraitElement(IElement element_)
+    public bool RetraitElement(Element element_)
     {
-        IElement element = Elements.Find(e => e.Value == element_);
+        foreach (KeyValuePair<string, Groupe> groupe in Elements)
+        {
+            Element element = groupe.Find(e => e.Value == element_);
+        }
+
+
+        Element element = Elements.Find(e => e.Value == element_);
         bool réussite = Elements.Remove(element_);
         (element as Control)?.QueueFree();
         return réussite;
     }
+
+    public void Redimensionner(float taille_)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Réorienter(bool vertical_ = true)
+    {
+        throw new NotImplementedException();
+    }
+
 }
