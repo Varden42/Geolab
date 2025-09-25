@@ -1,0 +1,1 @@
+// TODO: créer des méthodes de constructions de strings personnalisés, par exemple un nom suivit d'un identifiant séparé par un charactère ex : Machin#24

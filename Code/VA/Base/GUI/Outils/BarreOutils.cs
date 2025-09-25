@@ -31,28 +31,11 @@ public partial class BarreOutils: Prefab.ControlPrefab
         Bord = bord_;
 
         Elements = new();
-        Compteur = new();
-
-        Panneau = new();
-        {
-            Panneau.ClipContents = true;
-
-            Lignes = new();
-            {
-                Lignes.Name = "Lignes";
-                Lignes.ClipContents = true;
-                Lignes.AddThemeConstantOverride("h_separation", 1);
-                Lignes.AddThemeConstantOverride("v_separation", 1);
-            }
-            Panneau.AddChild(Lignes);
-        }
-        AddChild(Panneau);
-        
-        
+        Compteur = new();     
         
         ChangerBord(Bord);
         
-        Resized += MajTailleActions;
+        Resized += MajTailleOutils;
     }
 
     protected override void Construire()
@@ -120,7 +103,7 @@ public partial class BarreOutils: Prefab.ControlPrefab
     /// Calcule La taille des actions en fonction de la largeur/hauteur de la barre de manière à ce qu'ils prennent toute la longueur en gardant un ratio correct
     /// Les actions devront toujours se rapprocher d'une taille de 20x20 multiplier par le ratio de zoom
     /// </summary>
-    private void MajTailleActions()
+    private void MajTailleOutils()
     {
         // TODO: prendre en compte l'espace entre les éléments ainsi que les bordures.
         // parcourir les éléments et calculer le cumul de toutes les zones de vide pour les retirer de la longueur de la barre.
@@ -139,7 +122,7 @@ public partial class BarreOutils: Prefab.ControlPrefab
         // float longueurUtile = longueurBarre - (espaceVide + séparations);
         //
         // tailleEléments = longueurUtile / Mathf.Round(longueurUtile / tailleEléments);
-        foreach (KeyValuePair<string, Groupe> groupe in Elements)
+        foreach (KeyValuePair<string, Elements.Groupe> groupe in Elements)
         { groupe.Value.RedimensionnerElements(tailleEléments); }
     }
     
@@ -147,12 +130,12 @@ public partial class BarreOutils: Prefab.ControlPrefab
     private void ChangerZoom(int zoom_)
     {
         if (zoom_ != Zoom_)
-        { MajTailleActions(); }
+        { MajTailleOutils(); }
     }
 
-    public void AjouterElement(Element element_, int index_ = -1)
+    public void AjouterElement(Elements.IElement element_, int index_ = -1)
     {
-        Groupe groupe = new();
+        Elements.Groupe groupe = new();
         groupe.AjouterElement(element_);
         
         Elements.Add(Compteur.Ajouter.ToString(), groupe);
@@ -160,9 +143,9 @@ public partial class BarreOutils: Prefab.ControlPrefab
         ChangementDeBord += groupe.Réorienter;
     }
     
-    public void AjouterElement(string nomGroupe_, Element element_, int index_ = -1)
+    public void AjouterElement(string nomGroupe_, Elements.IElement element_, int index_ = -1)
     {
-        if (Elements.TryGetValue(nomGroupe_, out Groupe groupe))
+        if (Elements.TryGetValue(nomGroupe_, out Elements.Groupe groupe))
         { groupe.AjouterElement(element_, index_); }
         else
         {
@@ -174,9 +157,9 @@ public partial class BarreOutils: Prefab.ControlPrefab
         }
     }
     
-    public void AjouterElements(string nomGroupe_, IEnumerable<Element> elements_, int index_ = -1)
+    public void AjouterElements(string nomGroupe_, IEnumerable<Elements.IElement> elements_, int index_ = -1)
     {
-        if (Elements.TryGetValue(nomGroupe_, out Groupe groupe))
+        if (Elements.TryGetValue(nomGroupe_, out Elements.Groupe groupe))
         { groupe.AjouterElements(elements_, index_); }
         else
         {
@@ -188,9 +171,7 @@ public partial class BarreOutils: Prefab.ControlPrefab
         }
     }
     
-    // faire les méthodes de retrait
-    
-    public void AjouterGroupe(string nomGroupe_, Groupe groupe_, int index_ = -1)
+    public void AjouterGroupe(string nomGroupe_, Elements.Groupe groupe_, int index_ = -1)
     {
         if (!Elements.ContainsKey(nomGroupe_))
         {
@@ -200,17 +181,22 @@ public partial class BarreOutils: Prefab.ControlPrefab
         }
     }
 
-    public bool RetraitElement(Element element_)
+    public bool RetraitElement(Elements.IElement element_)
     {
-        foreach (KeyValuePair<string, Groupe> groupe in Elements)
+        bool réussite = false;
+        foreach (KeyValuePair<string, Elements.Groupe> groupe in Elements)
         {
-            Element element = groupe.Find(e => e.Value == element_);
+            réussite = groupe.Value.RetraitElement(element_);
+            if (réussite)
+            {
+                if (groupe.Value.NombreElements <= 0)
+                {
+                    Elements.Remove(groupe.Key);
+                    (groupe.Value as Control)?.QueueFree();
+                }
+                break;
+            }
         }
-
-
-        Element element = Elements.Find(e => e.Value == element_);
-        bool réussite = Elements.Remove(element_);
-        (element as Control)?.QueueFree();
         return réussite;
     }
 

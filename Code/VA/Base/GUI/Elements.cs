@@ -15,14 +15,17 @@ public interface IElement
 /// <summary>
 /// Un groupe contient plusieurs éléments séparés par une barre verticale
 /// </summary>
-public partial class Groupe : BoxContainer, IElement
+public partial class Groupe : Prefab.ControlPrefab, IElement
 {
     private List<IElement> Elements;
     
     public int NombreElements => Elements.Count;
 
-    public Groupe()
-    { Elements = new(); }
+    public Groupe(string nom_ = "")
+    {
+        Name = nom_ == "" ? nameof(Name) : nom_;
+        Elements = new();
+    }
 
     public Groupe(IEnumerable<IElement> elements_)
     {
