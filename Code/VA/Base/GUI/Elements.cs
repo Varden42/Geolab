@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using VA.Base.Utiles;
 
 namespace VA.Base.GUI.Outils.Elements;
 
@@ -17,17 +18,24 @@ public interface IElement
 /// </summary>
 public partial class Groupe : Prefab.ControlPrefab, IElement
 {
+    /// <summary>
+    /// Le compteur permettant de donner un identifiant unique à chaque instances
+    /// </summary>
+    private static CompteurInt IdsMatricules = new();
+
+    private BoxContainer Conteneur;
+
     private List<IElement> Elements;
     
     public int NombreElements => Elements.Count;
 
     public Groupe(string nom_ = "")
     {
-        Name = nom_ == "" ? nameof(Name) : nom_;
+        Name = nom_ == "" ? Base.Utiles.String.GénérerMatricule("_", '#', IdsMatricules.Ajouter) : nom_;
         Elements = new();
     }
 
-    public Groupe(IEnumerable<IElement> elements_)
+    public Groupe(IEnumerable<IElement> elements_, string nom_ = "")
     {
         foreach (IElement element in elements_.ToList())
         {
@@ -36,6 +44,14 @@ public partial class Groupe : Prefab.ControlPrefab, IElement
         }
     }
 
+    protected override void Construire()
+    {
+        Conteneur = new();
+        {
+            Conteneur.Vertical = false;
+            // TODO: Finir le constructeur
+        }
+    }
 
     public void AjouterElement(IElement element_, int index_ = -1)
     {
@@ -80,5 +96,5 @@ public partial class Groupe : Prefab.ControlPrefab, IElement
     }
 
     public void Réorienter(bool vertical_ = true)
-    { Vertical = vertical_; }
+    { Conteneur.Vertical = vertical_; }
 }

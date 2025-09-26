@@ -8,7 +8,7 @@ namespace VA.Base.GUI.Outils;
 /// <summary>
 /// Une barre contenant des outils et pouvant être placé sur les bords du rect dans lequel il se trouve
 /// </summary>
-public partial class BarreOutils: Prefab.ControlPrefab
+public partial class BarreOutils: Prefab.ControlPrefab, Elements.IElement
 {
     public const float TAILLE_ELEMENT = 20f;
     public enum EnumBord { Haut, Bas, Gauche, Droite }
